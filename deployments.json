@@ -1,0 +1,11 @@
+{
+  "sepolia": {
+    "WTC": "0xef1DA534B9f44a9DF0C03cdB8418F9d982458DbD",
+    "StakeToken": "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD",
+    "MyNFT": "0xC8Cd666015b72DB3E0EaB3CF8D8C55b4E4693C17",
+    "StakingContract": "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e",
+    "NFTStaking": "0xaae37fcD12764000c9371F017af2aBB936f4Bfa5",
+    "rewardRate": "1",
+    "rewardPerSecond": "1000000000000000000"
+  }
+}

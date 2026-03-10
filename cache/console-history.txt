@@ -1,0 +1,85 @@
+await (await staking.setRewardRate(newRate)).wait();
+const newRate = ethers.parseUnits("1", 18); // 1 WTC per second
+const staking = await ethers.getContractAt("StakingContract", "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e");
+ethers.formatUnits(earned, 18)
+const earned = await staking.earned("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const staking = await ethers.getContractAt("StakingContract", "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e");
+ethers.formatUnits(earned, 18)
+const earned = await staking.earned("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const staking = await ethers.getContractAt("StakingContract", "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e");
+ethers.formatUnits(earned, 18)
+rate.toString()
+const earned = await staking.earned("YOUR_WALLET");
+const rate = await staking.rewardRate();
+const staking = await ethers.getContractAt("StakingContract", "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e");
+ethers.formatEther(bal)
+const bal = await ethers.provider.getBalance("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+await nft.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const nft = await ethers.getContractAt("MyNFT", "0xC8Cd666015b72DB3E0EaB3CF8D8C55b4E4693C17");
+ethers.formatUnits(bal, 18)
+const bal = await token.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const token = await ethers.getContractAt("WTC", "0xef1DA534B9f44a9DF0C03cdB8418F9d982458DbD");
+ethers.formatUnits(bal, 18)
+const bal = await token.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const token = await ethers.getContractAt("WTC", "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD");
+await tx.wait();
+const tx = await nft.mint(to);
+const to = "0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7";
+const nft = await ethers.getContractAt("MyNFT", "0xC8Cd666015b72DB3E0EaB3CF8D8C55b4E4693C17");
+await tx.wait();
+const tx = await nft.mint(to);
+const to = "0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7";
+// mint 1 NFT to your wallet
+const nft = await ethers.getContractAt("MyNFT", "0xC8Cd666015b72DB3E0EaB3CF8D8C55b4E4693C17");
+ethers.formatUnits(bal, 18)
+const bal = await token.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const token = await ethers.getContractAt("WTC", "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD");
+ethers.formatUnits(bal, 18)
+const bal = await token.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const token = await ethers.getContractAt("WTC", "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD");
+await tx.wait();
+const tx = await Token.transfer(to, amount);
+const Token = await ethers.getContractAt("WTC", tokenAddress);
+const amount = ethers.parseUnits("1000", 18);
+const to = "0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7";
+const tokenAddress = "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD";
+await tx.wait();
+const tx = await Token.transfer(to, amount);
+const Token = await ethers.getContractAt("WTC", tokenAddress);
+const amount = ethers.parseUnits("1000", 18);
+const to = "0x6d68904D450a739F08244182E7E5294BF31EC26D";
+const tokenAddress = "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD";
+await tx.wait();
+const tx = await Token.transfer(to, amount);
+const Token = await ethers.getContractAt("WTC", tokenAddress);
+const amount = ethers.parseUnits("1000", 18);
+const to = "0x6d68904D450a739F08244182E7E5294BF31EC26D";
+const tokenAddress = "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD";
+await tx.wait();
+const tx = await Token.transfer(to, amount);
+const Token = await ethers.getContractAt("WTCToken", tokenAddress);
+const amount = ethers.parseUnits("1000", 18);
+const to = "0x6d68904D450a739F08244182E7E5294BF31EC26D";
+const tokenAddress = "0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD";
+const tokenAddress = 
+await tx.wait();
+const tx = await Token.transfer(to, amount);
+const Token = await ethers.getContractAt("WTCToken", tokenAddress);
+// Attach to token and send
+const amount = ethers.parseUnits("1000", 18);
+// Amount to send (token has 18 decimals)
+const to = "PASTE_RECIPIENT_WALLET_HERE";
+// Replace with the wallet you want to receive tokens
+const tokenAddress = "PASTE_TOKEN_ADDRESS_HERE";
+// Replace with the token you want to send
+const { ethers } = require("hardhat");
+npx hardhat console --network sepolia
+const nft = await NFT.attach("cd /home/wtc/staking_contracts
+const NFT = await ethers.getContractFactory("MyNFT");
+await stakeToken.transfer("YOUR_WALLET_ADDRESS", ethers.parseUnits("1000", 18));
+const stakeToken = await Token.attach("0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD");
+const Token = await ethers.getContractFactory("WTC");
+npx hardhat console --network sepolia
+await stakeToken.transfer("YOUR_WALLET_ADDRESS", ethers.parseUnits("1000", 18));
+const stakeToken = await Token.attach("0xb131F4d77f60b104F1A5FEc79c211F93780c3EdD");
+const Token = await ethers.getContractFactory("WTC");
