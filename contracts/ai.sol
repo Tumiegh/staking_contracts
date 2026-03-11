@@ -10,15 +10,19 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 contract StakingContract is Ownable, ReentrancyGuard, Pausable {
     using SafeERC20 for IERC20;
 
+    uint256 public constant DEFAULT_WEEKLY_RATE_BPS = 50; // 0.5% per week
+    uint256 public constant MAX_WEEKLY_RATE_BPS = 200; // 2% per week safety cap
+
     // Tokens
     IERC20 public stakingToken;
     IERC20 public rewardToken;
 
     // Staking variables
-    uint256 public rewardRate;
+    uint256 public weeklyRateBps; // weekly reward rate in basis points (100 = 1% per week)
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
     uint256 public totalStaked;
+    uint256 public rewardsPool; // unallocated reward tokens available for distribution
     
     // Staking duration
     uint256 public stakingDuration = 30 days;
@@ -33,27 +37,28 @@ contract StakingContract is Ownable, ReentrancyGuard, Pausable {
     event Staked(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
-    event RewardRateUpdated(uint256 newRate);
+    event WeeklyRateUpdated(uint256 newWeeklyRateBps);
     event StakingDurationUpdated(uint256 newDuration);
+    event RewardsFunded(uint256 amount);
 
     constructor(
         address _stakingToken,
         address _rewardToken,
-        uint256 _rewardRate
+        uint256 _weeklyRateBps
     ) {
         require(_stakingToken != address(0), "Invalid staking token");
         require(_rewardToken != address(0), "Invalid reward token");
         
         stakingToken = IERC20(_stakingToken);
         rewardToken = IERC20(_rewardToken);
-        rewardRate = _rewardRate;
+        weeklyRateBps = _weeklyRateBps == 0 ? DEFAULT_WEEKLY_RATE_BPS : _weeklyRateBps;
+        require(weeklyRateBps <= MAX_WEEKLY_RATE_BPS, "Weekly rate too high");
         lastUpdateTime = block.timestamp;
     }
 
     // Modifier to update rewards
     modifier updateReward(address account) {
-        rewardPerTokenStored = rewardPerToken();
-        lastUpdateTime = block.timestamp;
+        _updateRewardState();
         
         if (account != address(0)) {
             rewards[account] = earned(account);
@@ -62,12 +67,51 @@ contract StakingContract is Ownable, ReentrancyGuard, Pausable {
         _;
     }
 
+    // Internal: update global reward state and allocate from rewardsPool.
+    function _updateRewardState() internal {
+        if (totalStaked == 0) {
+            lastUpdateTime = block.timestamp;
+            return;
+        }
+
+        uint256 dt = block.timestamp - lastUpdateTime;
+        if (dt == 0 || rewardsPool == 0) {
+            lastUpdateTime = block.timestamp;
+            return;
+        }
+
+        uint256 potentialReward = (totalStaked * weeklyRateBps * dt) / (7 days * 10000);
+        uint256 actualReward = potentialReward;
+        if (actualReward > rewardsPool) {
+            actualReward = rewardsPool;
+        }
+
+        if (actualReward > 0) {
+            rewardPerTokenStored += (actualReward * 1e18) / totalStaked;
+            rewardsPool -= actualReward;
+        }
+
+        lastUpdateTime = block.timestamp;
+    }
+
     // Calculate reward per token
     function rewardPerToken() public view returns (uint256) {
         if (totalStaked == 0) {
             return rewardPerTokenStored;
         }
-        return rewardPerTokenStored + ((block.timestamp - lastUpdateTime) * rewardRate * 1e18 / totalStaked);
+
+        uint256 dt = block.timestamp - lastUpdateTime;
+        if (dt == 0 || rewardsPool == 0) {
+            return rewardPerTokenStored;
+        }
+
+        uint256 potentialReward = (totalStaked * weeklyRateBps * dt) / (7 days * 10000);
+        uint256 actualReward = potentialReward;
+        if (actualReward > rewardsPool) {
+            actualReward = rewardsPool;
+        }
+
+        return rewardPerTokenStored + ((actualReward * 1e18) / totalStaked);
     }
 
     // Calculate earned rewards for an account
@@ -119,9 +163,16 @@ contract StakingContract is Ownable, ReentrancyGuard, Pausable {
     }
 
     // Admin functions
-    function setRewardRate(uint256 _rewardRate) external onlyOwner updateReward(address(0)) {
-        rewardRate = _rewardRate;
-        emit RewardRateUpdated(_rewardRate);
+    function setWeeklyRateBps(uint256 _weeklyRateBps) external onlyOwner updateReward(address(0)) {
+        require(_weeklyRateBps <= MAX_WEEKLY_RATE_BPS, "Weekly rate too high");
+        weeklyRateBps = _weeklyRateBps;
+        emit WeeklyRateUpdated(_weeklyRateBps);
+    }
+
+    // Reset to a realistic default weekly rate.
+    function resetWeeklyRate() external onlyOwner updateReward(address(0)) {
+        weeklyRateBps = DEFAULT_WEEKLY_RATE_BPS;
+        emit WeeklyRateUpdated(DEFAULT_WEEKLY_RATE_BPS);
     }
 
     function setStakingDuration(uint256 _duration) external onlyOwner {
@@ -144,7 +195,10 @@ contract StakingContract is Ownable, ReentrancyGuard, Pausable {
 
     // Fund contract with rewards
     function fundRewards(uint256 amount) external onlyOwner {
+        require(amount > 0, "Amount must be > 0");
         rewardToken.safeTransferFrom(msg.sender, address(this), amount);
+        rewardsPool += amount;
+        emit RewardsFunded(amount);
     }
 
     // Pause/Unpause staking
