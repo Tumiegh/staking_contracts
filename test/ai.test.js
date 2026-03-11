@@ -11,13 +11,13 @@ describe("StakingContract (ai.sol)", function () {
     const stakingToken = await Token.deploy("Stake Token", "STK", 1_000_000);
     const rewardToken = await Token.deploy("Reward Token", "RWD", 1_000_000);
 
-    // Reward rate is tokens per second per staked token (scaled by contract math)
-    const rewardRate = 1n; // 1 reward unit/second when only one staker
+    // Weekly reward rate in basis points (100 = 1% per week)
+    const weeklyRateBps = 50n; // 0.5% per week
     const Staking = await ethers.getContractFactory("StakingContract");
     const staking = await Staking.deploy(
       await stakingToken.getAddress(),
       await rewardToken.getAddress(),
-      rewardRate
+      weeklyRateBps
     );
 
     const ownerAddr = await owner.getAddress();

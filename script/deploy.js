@@ -29,9 +29,9 @@ async function main() {
   console.log("MyNFT:", nftAddr);
 
   // Deploy ERC20 staking contract (ai.sol)
-  const rewardRate = 1n; // reward per second per token (scaled by contract math)
+  const weeklyRateBps = 50n; // 0.5% per week
   const Staking = await hre.ethers.getContractFactory("StakingContract");
-  const staking = await Staking.deploy(stakingTokenAddr, rewardTokenAddr, rewardRate);
+  const staking = await Staking.deploy(stakingTokenAddr, rewardTokenAddr, weeklyRateBps);
   await staking.waitForDeployment();
   const stakingAddr = await staking.getAddress();
   console.log("StakingContract:", stakingAddr);
@@ -74,7 +74,7 @@ async function main() {
       MyNFT: nftAddr,
       StakingContract: stakingAddr,
       NFTStaking: nftStakingAddr,
-      rewardRate: rewardRate.toString(),
+      weeklyRateBps: weeklyRateBps.toString(),
       rewardPerSecond: rewardPerSecond.toString(),
     },
   };

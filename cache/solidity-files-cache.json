@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/wtc/staking_contracts/contracts/MyNFT.sol": {
-      "lastModificationDate": 1773093338980,
-      "contentHash": "b100abe54d0e8ad8c98216518c459b0f",
+      "lastModificationDate": 1773214755710,
+      "contentHash": "a4e79bb859b3e379ae71040d21995af1",
       "sourceName": "contracts/MyNFT.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -839,8 +839,8 @@
       ]
     },
     "/home/wtc/staking_contracts/contracts/ai.sol": {
-      "lastModificationDate": 1772871577032,
-      "contentHash": "c0d7db13dbd55aeb5232bdffd08d1e95",
+      "lastModificationDate": 1773218032214,
+      "contentHash": "22fd039a24d8907fb15caad958209e04",
       "sourceName": "contracts/ai.sol",
       "solcConfig": {
         "version": "0.8.19",
