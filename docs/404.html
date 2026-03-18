@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        var l = window.location;
+        var segments = l.pathname.split("/");
+        var repo = segments.length > 1 ? segments[1] : "";
+        var base = repo ? "/" + repo : "";
+        var rel = l.pathname.slice(base.length);
+        if (rel.startsWith("/")) rel = rel.slice(1);
+        var search = l.search ? l.search.slice(1) : "";
+        var hash = l.hash ? l.hash.slice(1) : "";
+        var next =
+          l.protocol +
+          "//" +
+          l.host +
+          base +
+          "/?p=" +
+          encodeURIComponent(rel) +
+          (search ? "&q=" + encodeURIComponent(search) : "") +
+          (hash ? "&h=" + encodeURIComponent(hash) : "");
+        l.replace(next);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

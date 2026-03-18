@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault.Stake</title>
+    <link rel="icon" href="/staking_contracts/logo.svg" />
+    <meta name="description" content="Stake tokens and NFTs, earn rewards, and track activity." />
+    <meta name="author" content="Vault.Stake" />
+
+    <meta property="og:title" content="Vault.Stake" />
+    <meta property="og:description" content="Stake tokens and NFTs, earn rewards, and track activity." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VaultStake" />
+    <meta name="twitter:image" content="/logo.svg" />
+
+    <script>
+      (function () {
+        if (!window.location.search.startsWith("?p=")) return;
+        var params = new URLSearchParams(window.location.search);
+        var path = params.get("p") || "";
+        var query = params.get("q");
+        var hash = params.get("h");
+        var base = window.location.pathname.replace(/\/$/, "");
+        var nextPath = base + "/" + path;
+        var nextSearch = query ? "?" + query : "";
+        var nextHash = hash ? "#" + hash : "";
+        window.history.replaceState(null, "", nextPath + nextSearch + nextHash);
+      })();
+    </script>
+    <script type="module" crossorigin src="/staking_contracts/assets/index-DhNp2x5g.js"></script>
+    <link rel="stylesheet" crossorigin href="/staking_contracts/assets/index-jy1tnDrw.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
