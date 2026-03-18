@@ -16,6 +16,21 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@VaultStake" />
     <meta name="twitter:image" content="/logo.svg" />
+
+    <script>
+      (function () {
+        if (!window.location.search.startsWith("?p=")) return;
+        var params = new URLSearchParams(window.location.search);
+        var path = params.get("p") || "";
+        var query = params.get("q");
+        var hash = params.get("h");
+        var base = window.location.pathname.replace(/\/$/, "");
+        var nextPath = base + "/" + path;
+        var nextSearch = query ? "?" + query : "";
+        var nextHash = hash ? "#" + hash : "";
+        window.history.replaceState(null, "", nextPath + nextSearch + nextHash);
+      })();
+    </script>
   </head>
 
   <body>

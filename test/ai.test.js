@@ -64,12 +64,14 @@ describe("StakingContract (ai.sol)", function () {
     const pending = await staking.earned(aliceAddr);
     expect(pending).to.be.greaterThan(0n);
 
-    // Claim and compare balance change
+    // Claim and compare balance change (allow tiny drift due to time passing)
     const before = await rewardToken.balanceOf(aliceAddr);
     await staking.connect(alice).getReward();
     const after = await rewardToken.balanceOf(aliceAddr);
 
-    expect(after - before).to.equal(pending);
+    const paid = after - before;
+    const tolerance = ethers.parseUnits("0.001", 18); // 0.001 token tolerance
+    expect(paid).to.be.closeTo(pending, tolerance);
   });
 
   it("blocks withdraw before lock and allows after lock", async function () {

@@ -1,3 +1,16 @@
+await nft.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7")
+await stakeToken.balanceOf("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7")
+await tx3.wait();
+let tx3 = await nft.mint("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+await tx2.wait();
+let tx2 = await nft.mint("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+await tx.wait();
+const tx = await stakeToken.transfer("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7", ethers.parseUnits("2000", 18));
+await nft.mint("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7");
+const nft = await ethers.getContractAt("MyNFT", "0x7D1aB28c59a151DD0bc77a6B841F28FBBF283512");
+await stakeToken.transfer("0x471Ca0C3A1ac0cCBA96a1a09cA0a3dD232a3Cdc7", ethers.parseUnits("2000", 18));
+const stakeToken = await ethers.getContractAt("WTC", "0x0CB1E2f0b5c2a3032f68A7f3515298cA85Bb158c");
+const [deployer] = await ethers.getSigners();
 await (await staking.setRewardRate(newRate)).wait();
 const newRate = ethers.parseUnits("1", 18); // 1 WTC per second
 const staking = await ethers.getContractAt("StakingContract", "0x27961cF8b32c8E8A9914b35596f284B4F7A9bC9e");
